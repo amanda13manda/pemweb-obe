@@ -26,3 +26,7 @@ Visual Studio Code
 6. Buka browser.
 7. Akses URL proyek melalui:
    `http://localhost/pemweb-obe/`
+
+## Pengujian
+Proyek telah diuji melalui browser menggunakan alamat:
+http://localhost/pemweb-obe/
