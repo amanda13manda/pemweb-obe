@@ -1,11 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Praktikum Pemrograman Web</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sistem Pencatatan Kehadiran dan Manajemen Tamu untuk Event Organisasi Mahasiswa">
+    <title>Presensi Event Organisasi Mahasiswa</title>
 </head>
 <body>
-  <h1>Praktikum Pemrograman Web</h1>
+
+    <!-- Aksesibilitas: Tautan lewati ke konten utama -->
+    <a href="#main">Lewati ke konten utama</a>
+
+    <header>
+        <h1>Sistem Presensi Event Mahasiswa</h1>
+        <nav aria-label="Navigasi utama">
+            <a href="#informasi">Informasi Acara</a>
+            <a href="#presensi">Form Presensi</a>
+            <a href="#bantuan">Pusat Bantuan</a>
+        </nav>
+    </header>
+
+    <main id="main">
+        <!-- Section 1: Informasi Acara (Memuat Article & Gambar Informatif) -->
+        <section id="informasi">
+            <h2>Informasi Kegiatan</h2>
+            <article>
+                <h3>Seminar & Musyawarah Anggota</h3>
+                <p>Silakan melakukan registrasi kehadiran di meja registrasi melalui formulir digital di bawah ini.</p>
+                <img src="banner-kegiatan.png" alt="Poster kegiatan seminar organisasi mahasiswa dengan jadwal pukul 09.00 WITA" width="280">
+            </article>
+        </section>
+
+        <!-- Section 2: Form Presensi On-The-Spot (Label Terhubung ID Input) -->
+        <section id="presensi">
+            <h2>Form Presensi Tamu & Peserta</h2>
+            <form action="#" method="post">
+                <div>
+                    <label for="nama_lengkap">Nama Lengkap:</label><br>
+                    <input type="text" id="nama_lengkap" name="nama_lengkap" required>
+                </div>
+                <br>
+                <div>
+                    <label for="kategori_tamu">Kategori Tamu:</label><br>
+                    <select id="kategori_tamu" name="kategori_tamu" required>
+                        <option value="">-- Pilih Kategori --</option>
+                        <option value="mahasiswa">Mahasiswa Aktif</option>
+                        <option value="delegasi">Delegasi Ormawa / Himpunan</option>
+                        <option value="instansi">Instansi / Tamu Umum</option>
+                        <option value="vip">Dosen / Tamu Undangan Khusus</option>
+                    </select>
+                </div>
+                <br>
+                <div>
+                    <label for="instansi">Asal Kampus / Lembaga:</label><br>
+                    <input type="text" id="instansi" name="instansi" required>
+                </div>
+                <br>
+                <button type="submit">Kirim Kehadiran</button>
+            </form>
+        </section>
+
+        <!-- Section 3: Kontak & Bantuan (Memuat Gambar Dekoratif & Tautan Gambar) -->
+        <section id="bantuan">
+            <h2>Bantuan Meja Registrasi</h2>
+            <p>Butuh bantuan teknis presensi? Temui staf registrasi di pintu masuk.</p>
+            <img src="garis-pembatas.png" alt="" width="150">
+            <br><br>
+            <a href="https://wa.me/6281234567890">
+                <img src="icon-whatsapp.png" alt="Hubungi panitia registrasi via WhatsApp" width="30">
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Organisasi Mahasiswa</p>
+    </footer>
+
 </body>
 </html>
