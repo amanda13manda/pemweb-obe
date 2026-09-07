@@ -24,3 +24,10 @@ Informasi request berhasil dicatat berdasarkan hasil pengujian pada browser.
 Hasil diperiksa kembali melalui tab Network pada browser.
 - Keputusan Mahasiswa:
 Digunakan sebagai dokumentasi hasil praktikum.
+
+
+- Tanggal: 8 September 2026
+- Tujuan Penggunaan: 
+  - Konsultasi penyesuaian judul dan struktur proyek menjadi sistem undangan digital berstandar QR Code dan form RSVP delegasi instansi.
+  - Memahami panduan refactoring elemen HTML5 semantik, pembuatan tabel rundown, dan checklist aksesibilitas web dasar.
+  - Mempelajari urutan perintah terminal Git untuk pembuatan branch, commit bertahap, dan merge.

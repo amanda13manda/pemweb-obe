@@ -34,3 +34,17 @@ http://localhost/pemweb-obe/
 ## Progres Pertemuan 2 - Struktur HTML5 & Aksesibilitas
 - Menerapkan struktur HTML5 semantik (header, nav, main, section, article, form, footer).
 - Melakukan pengujian aksesibilitas navigasi berbasis keyboard menggunakan tombol Tab.
+
+## Fitur Halaman Web
+1. Navigasi Utama (`<nav>`): Menu tautan cepat ke bagian informasi, susunan acara, RSVP, dan bantuan.
+2. Identitas Tamu & QR Code: Kartu informasi beserta kode QR unik untuk pemindaian saat kedatangan di acara.
+3. Informasi Kegiatan (`<article>` & `<section>`): Rincian pelaksanaan kegitan.
+4. Susunan Acara (`<table>`): Jadwal kegiatan terstruktur dari registrasi hingga penutup.
+5. Formulir RSVP (`<form>`): Input data instansi, nama perwakilan delegasi, jumlah hadir, dan status konfirmasi.
+6. Pusat Bantuan: Informasi panitia di meja registrasi.
+7. Aksesibilitas Dasar: Atribut `lang="id"`, *skip link* (*tautan lewati ke konten utama*), label form interaktif, dan teks alternatif (`alt`) pada gambar.
+
+## Alur Kerja Version Control (Git)
+- Pengerjaan fitur menggunakan *branch* khusus: `feature/struktur-home`
+- Riwayat *commit* terstruktur dan bermakna.
+- Digabungkan ke *branch* utama (`main`) melalui proses merge.
