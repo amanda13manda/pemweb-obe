@@ -43,3 +43,10 @@ Digunakan sebagai dokumentasi hasil praktikum.
   - Memverifikasi struktur semantik dengan menjalankan halaman di Laragon `http://localhost/pemweb-obe/`.
   - Menguji langsung perpindahan fokus keyboard menggunakan tombol Tab di Google Chrome.
   - Memeriksa keabsahan branch, commit, dan push pada terminal Git.
+=======
+
+- Tanggal: 8 September 2026
+- Tujuan Penggunaan: 
+  - Konsultasi penyesuaian judul dan struktur proyek menjadi sistem undangan digital berstandar QR Code dan form RSVP delegasi instansi.
+  - Memahami panduan refactoring elemen HTML5 semantik, pembuatan tabel rundown, dan checklist aksesibilitas web dasar.
+  - Mempelajari urutan perintah terminal Git untuk pembuatan branch, commit bertahap, dan merge.
