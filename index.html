@@ -1,79 +1,126 @@
 <!doctype html>
-<html lang="id">
+<html lang="id"> <!-- AKSESIBILITAS: Atribut bahasa dokumen (lang) -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Sistem Pencatatan Kehadiran dan Manajemen Tamu untuk Event Organisasi Mahasiswa">
-    <title>Presensi Event Organisasi Mahasiswa</title>
+    <meta name="description" content="Sistem Manajemen Undangan dan Presensi Event HMTK Berbasis QR Code">
+    <title>Undangan HMTK</title>
 </head>
 <body>
 
-    <!-- Aksesibilitas: Tautan lewati ke konten utama -->
+    <!-- AKSESIBILITAS: Tautan lewati ke konten utama (Skip Link untuk pembaca layar / keyboard) -->
     <a href="#main">Lewati ke konten utama</a>
 
+    <!-- STRUKTUR SEMANTIK: Header Halaman -->
     <header>
-        <h1>Sistem Presensi Event Mahasiswa</h1>
+        <!-- HIERARKI HEADING: Heading Utama Halaman (h1) -->
+        <h1>Undangan HMTK</h1>
+        
+        <div class="tamu-card">
+            <p>Kepada:</p>
+            <!-- HIERARKI HEADING: Sub-heading tingkat 3 (h3) -->
+            <h3>Nama Tamu</h3>
+            <!-- AKSESIBILITAS: Atribut alt pada gambar untuk pembaca  -->
+            <img src="qr-tamu.png" alt="QR Code Tamu Undangan untuk dipindai saat kedatangan di acara" width="130">
+        </div>
+
+        <!-- KOMPONEN WAJIB: Navigasi (<nav>) dengan aksesibilitas aria-label -->
         <nav aria-label="Navigasi utama">
-            <a href="#informasi">Informasi Acara</a>
-            <a href="#presensi">Form Presensi</a>
+            <a href="#informasi">Informasi Acara</a> | 
+            <a href="#rundown">Susunan Acara</a> | 
+            <a href="#presensi">Konfirmasi RSVP</a> | 
             <a href="#bantuan">Pusat Bantuan</a>
         </nav>
     </header>
 
+    <!-- KOMPONEN WAJIB: Konten Utama (<main>) -->
     <main id="main">
-        <!-- Section 1: Informasi Acara (Memuat Article & Gambar Informatif) -->
+        <!-- KOMPONEN WAJIB: Section 1 (dari minimal 3 section yang diminta) -->
         <section id="informasi">
+            <!-- HIERARKI HEADING: Sub-heading tingkat 2 (h2) -->
             <h2>Informasi Kegiatan</h2>
+            <!-- KOMPONEN WAJIB: Minimal satu article (<article>) -->
             <article>
-                <h3>Seminar & Musyawarah Anggota</h3>
-                <p>Silakan melakukan registrasi kehadiran di meja registrasi melalui formulir digital di bawah ini.</p>
-                <img src="banner-kegiatan.png" alt="Poster kegiatan seminar organisasi mahasiswa dengan jadwal pukul 09.00 WITA" width="280">
+                <p><strong>Dengan hormat,</strong></p>
+                <p>Kami mengundang rekan-rekan untuk menghadiri agenda Seminar yang akan dilaksanakan pada:</p>
+                <ul>
+                    <li><strong>Hari/Tanggal:</strong> Rabu, 13 September 2026</li>
+                    <li><strong>Waktu:</strong> 09.00 WITA – Selesai</li>
+                    <li><strong>Tempat:</strong> UBT</li>
+                </ul>
             </article>
         </section>
 
-        <!-- Section 2: Form Presensi On-The-Spot (Label Terhubung ID Input) -->
+        <!-- KOMPONEN WAJIB: Section 2 (memenuhi syarat minimal 3 section) -->
+        <section id="rundown">
+            <h2>Susunan Acara</h2>
+            <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; max-width: 500px;">
+                <thead>
+                    <tr>
+                        <th style="text-align: left;">Waktu</th>
+                        <th style="text-align: left;">Agenda Kegiatan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>09.00 - 09.30</td>
+                        <td>Registrasi & Pemindaian QR Code Undangan</td>
+                    </tr>
+                    <tr>
+                        <td>09.30 - 11.30</td>
+                        <td>Sesi Pemaparan Materi Seminar</td>
+                    </tr>
+                    <tr>
+                        <td>11.30 - 12.00</td>
+                        <td>Diskusi, Tanya Jawab & Penutup</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- KOMPONEN WAJIB: Section 3 (memenuhi syarat minimal 3 section) -->
         <section id="presensi">
-            <h2>Form Presensi Tamu & Peserta</h2>
+            <h2>Form Konfirmasi Kehadiran (RSVP)</h2>
+            <!-- KOMPONEN WAJIB: Minimal satu form interaktif (<form>) -->
             <form action="#" method="post">
                 <div>
-                    <label for="nama_lengkap">Nama Lengkap:</label><br>
-                    <input type="text" id="nama_lengkap" name="nama_lengkap" required>
+                    <!-- AKSESIBILITAS: Label berpasangan dengan input via atribut for & id yang sama -->
+                    <label for="nama_instansi">Asal Instansi / Himpunan:</label><br>
+                    <input type="text" id="nama_instansi" name="nama_instansi" value="" required>
                 </div>
                 <br>
                 <div>
-                    <label for="kategori_tamu">Kategori Tamu:</label><br>
-                    <select id="kategori_tamu" name="kategori_tamu" required>
-                        <option value="">-- Pilih Kategori --</option>
-                        <option value="mahasiswa">Mahasiswa Aktif</option>
-                        <option value="delegasi">Delegasi Ormawa / Himpunan</option>
-                        <option value="instansi">Instansi / Tamu Umum</option>
-                        <option value="vip">Dosen / Tamu Undangan Khusus</option>
+                    <label for="nama_delegasi">Nama Perwakilan / Delegasi yang Hadir:</label><br>
+                    <input type="text" id="nama_delegasi" name="nama_delegasi" placeholder="Contoh: Ahmad & Budi" required>
+                </div>
+                <br>
+                <div>
+                    <label for="jumlah_hadir">Jumlah Orang yang Hadir:</label><br>
+                    <input type="number" id="jumlah_hadir" name="jumlah_hadir" min="1" max="5" value="2" required>
+                </div>
+                <br>
+                <div>
+                    <label for="status_kehadiran">Konfirmasi Status:</label><br>
+                    <select id="status_kehadiran" name="status_kehadiran" required>
+                        <option value="hadir">Akan Hadir</option>
+                        <option value="berhalangan">Berhalangan Hadir</option>
                     </select>
                 </div>
                 <br>
-                <div>
-                    <label for="instansi">Asal Kampus / Lembaga:</label><br>
-                    <input type="text" id="instansi" name="instansi" required>
-                </div>
-                <br>
-                <button type="submit">Kirim Kehadiran</button>
+                <button type="submit">Kirim Konfirmasi</button>
             </form>
         </section>
 
-        <!-- Section 3: Kontak & Bantuan (Memuat Gambar Dekoratif & Tautan Gambar) -->
+        <!-- Section tambahan ke-4 (semakin memperkuat syarat minimal 3 section) -->
         <section id="bantuan">
             <h2>Bantuan Meja Registrasi</h2>
-            <p>Butuh bantuan teknis presensi? Temui staf registrasi di pintu masuk.</p>
-            <img src="garis-pembatas.png" alt="" width="150">
-            <br><br>
-            <a href="https://wa.me/6281234567890">
-                <img src="icon-whatsapp.png" alt="Hubungi panitia registrasi via WhatsApp" width="30">
-            </a>
+            <p>Mengalami kendala konfirmasi atau pemindaian QR code? Beri tahu panitia yang ada di meja registrasi</p>
         </section>
     </main>
 
+    <!-- KOMPONEN WAJIB: Footer Halaman (<footer>) -->
     <footer>
-        <p>&copy; 2026 Organisasi Mahasiswa</p>
+        <p>&copy; 2026 Himpunan Mahasiswa Teknik Komputer (HMTK)</p>
     </footer>
 
 </body>
