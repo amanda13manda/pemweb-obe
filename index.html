@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Sistem Manajemen Undangan dan Presensi Event HMTK Berbasis QR Code">
     <title>Undangan HMTK</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -15,7 +16,8 @@
     <header>
         <!-- HIERARKI HEADING: Heading Utama Halaman (h1) -->
         <h1>Undangan HMTK</h1>
-        
+        <img src="logo-hmtk.png" alt="Logo Himpunan Mahasiswa Teknik Komputer" width="80" class="logo-hmtk">
+
         <div class="tamu-card">
             <p>Kepada:</p>
             <!-- HIERARKI HEADING: Sub-heading tingkat 3 (h3) -->
@@ -34,7 +36,7 @@
     </header>
 
     <!-- KOMPONEN WAJIB: Konten Utama (<main>) -->
-    <main id="main">
+    <main id="main" class="container">
         <!-- KOMPONEN WAJIB: Section 1 (dari minimal 3 section yang diminta) -->
         <section id="informasi">
             <!-- HIERARKI HEADING: Sub-heading tingkat 2 (h2) -->
@@ -62,15 +64,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr class="highlight-row">
                         <td>09.00 - 09.30</td>
                         <td>Registrasi & Pemindaian QR Code Undangan</td>
                     </tr>
-                    <tr>
+                    <tr class="highlight-row">
                         <td>09.30 - 11.30</td>
                         <td>Sesi Pemaparan Materi Seminar</td>
                     </tr>
-                    <tr>
+                    <tr class="highlight-row">
                         <td>11.30 - 12.00</td>
                         <td>Diskusi, Tanya Jawab & Penutup</td>
                     </tr>

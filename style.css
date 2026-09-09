@@ -1,11 +1,227 @@
+/* --- Langkah 2 Modul: Reset Ringan & Box Sizing --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Langkah 3 Modul: Custom Properties (:root) --- */
+:root {
+  --brand: #f59e0b;          /* Oranye/emas aksen tombol */
+  --brand-hover: #d97706;
+  --surface: #ffffff;        /* Warna dasar kartu putih */
+  --background: #e0f2fe;     /* Latar belakang biru pastel */
+  --text: #0f172a;           /* Warna teks navy gelap */
+  --text-muted: #475569;
+  --border: #bae6fd;         /* Garis batas biru lembut */
+  --radius: 0.75rem;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+}
+
 body {
-    font-family: Arial, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--background);
+  background-image: linear-gradient(to bottom, #e0f2fe, #bfdbfe);
+  background-attachment: fixed;
+  padding-bottom: 3rem;
 }
 
-h1 {
-    font-size: 28px;
+/* --- Langkah 4 Modul: Layout Container & Flexbox Navigasi --- */
+.container {
+  width: min(100% - 2rem, 64rem);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
 }
 
-p {
-    font-size: 16px;
+header {
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-2) 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* 1. Judul diubah menjadi BIRU */
+header h1 {
+  font-size: 1.5rem;
+  color: #1d4ed8;
+}
+
+/* Navigasi Flexbox 1 Dimensi */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius);
+  background-color: var(--background);
+  font-weight: 500;
+}
+
+nav a:hover {
+  background-color: #e2e8f0;
+}
+
+/* Komponen Kartu Tamu & QR Code */
+.tamu-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  text-align: center;
+  width: 100%;
+  max-width: 320px;
+}
+
+.tamu-card img {
+  display: block;
+  margin: var(--space-1) auto;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  padding: 0.25rem;
+}
+
+/* Komponen Section Umum */
+section {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+}
+
+/* 2. Khusus Kotak Informasi Kegiatan diberi warna KUNING */
+#informasi {
+  background-color: #fef9c3;
+  border-color: #fde047;
+}
+
+section h2 {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-2);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: var(--space-1);
+}
+
+ul {
+  padding-left: 1.25rem;
+}
+
+/* Tabel Susunan Acara */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-1);
+}
+
+th, td {
+  padding: var(--space-2);
+  border: 1px solid #000000; /* Garis tabel diubah menjadi hitam */
+  text-align: left;
+}
+
+th {
+  background-color: var(--background);
+}
+
+/* Formulir Konfirmasi RSVP */
+form div {
+  margin-bottom: var(--space-2);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 0.6rem var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+button[type="submit"] {
+  background-color: var(--brand);
+  color: #ffffff;
+  padding: 0.75rem var(--space-3);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--brand-hover);
+}
+
+footer {
+  text-align: center;
+  margin-top: var(--space-3);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+/* --- Langkah 5 Modul: Media Query Berbasis Kebutuhan Konten --- */
+@media (min-width: 48rem) {
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: var(--space-2) 2rem;
+  }
+
+  button[type="submit"] {
+    width: auto;
+  }
+}
+
+/* --- Langkah 7 Modul: Aksesibilitas Keyboard & Focus State --- */
+a[href="#main"] {
+  position: absolute;
+  top: -50px;
+  left: 1rem;
+  background: var(--brand);
+  color: #fff;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: bold;
+  z-index: 999;
+}
+
+a[href="#main"]:focus {
+  top: 1rem;
+}
+
+a:focus-visible, 
+button:focus-visible, 
+input:focus-visible, 
+select:focus-visible {
+  outline: 3px solid #0f172a;
+  outline-offset: 2px;
+}
+
+/* Styling untuk baris tabel yang ditandai warna kuning */
+tr.highlight-row {
+  background-color: #fef9c3; /* Warna kuning pastel */
 }
