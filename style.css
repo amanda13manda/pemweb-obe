@@ -1,227 +1,397 @@
-/* --- Langkah 2 Modul: Reset Ringan & Box Sizing --- */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* --- Langkah 3 Modul: Custom Properties (:root) --- */
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
-  --brand: #f59e0b;          /* Oranye/emas aksen tombol */
-  --brand-hover: #d97706;
-  --surface: #ffffff;        /* Warna dasar kartu putih */
-  --background: #e0f2fe;     /* Latar belakang biru pastel */
-  --text: #0f172a;           /* Warna teks navy gelap */
-  --text-muted: #475569;
-  --border: #bae6fd;         /* Garis batas biru lembut */
-  --radius: 0.75rem;
-  --space-1: 0.5rem;
-  --space-2: 1rem;
-  --space-3: 1.5rem;
+  --blue-bg: #9dc7e8;          /* Biru latar */
+  --creme-bg: #f6ecdb;         /* Krem latar */
+  --creme-light: #e9e5d4;      /* Krem kartu & rundown */
+  --gold-accent: #f4a82a;      /* Kuning emas */
+  --blue-accent: #4f7b9d;      /* Biru tulisan judul */
+  --blue-box: #38729f;         /* Biru border kotak */
+  --blue-label: #0176be;       /* Biru teks 'Kepada' */
+  --text-white: #ffffff;
+  --text-black: #000000;
+  
+  --font-fineday: 'Playfair Display', cursive, serif;
+  --font-cooper: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.6;
-  color: var(--text);
-  background-color: var(--background);
-  background-image: linear-gradient(to bottom, #e0f2fe, #bfdbfe);
-  background-attachment: fixed;
-  padding-bottom: 3rem;
+  font-family: var(--font-cooper);
+  line-height: 1.5;
+  width: 100%;
+  overflow-x: hidden;
 }
 
-/* --- Langkah 4 Modul: Layout Container & Flexbox Navigasi --- */
-.container {
-  width: min(100% - 2rem, 64rem);
-  margin-inline: auto;
+/* --- FULL WIDTH SECTIONS --- */
+.section-full {
+  width: 100%;                 /* Melebar penuh dari ujung ke ujung */
+  padding: 3.5rem 1.2rem;
   display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  margin-top: var(--space-3);
+  justify-content: center;
+  align-items: center;
 }
 
-header {
-  background-color: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: var(--space-2) 1rem;
+.bg-blue {
+  background-color: var(--blue-bg);
+}
+
+.bg-creme {
+  background-color: var(--creme-bg);
+}
+
+/* --- KONTEN TENGAH RAMPING SESUAI DESAIN KARTU --- */
+.content-center {
+  width: 100%;
+  max-width: 480px;            /* Membatasi isi agar tetap di tengah */
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* 1. COVER HERO */
+.hero-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
+  gap: 1.2rem;
 }
 
-/* 1. Judul diubah menjadi BIRU */
-header h1 {
+.title-fineday {
+  font-family: var(--font-fineday);
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 2.3rem);
+  color: var(--creme-bg);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.logo-circle {
+  background: #ffffff;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.qr-card-outer {
+  background-color: var(--gold-accent);
+  padding: 4px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 240px;
+}
+
+.qr-card-inner {
+  background-color: #ffffff;
+  border-radius: 3px;
+  padding: 0.9rem 1rem;
+  text-align: center;
+}
+
+.qr-label {
+  font-size: 0.85rem;
+  color: var(--blue-label);
+  font-weight: 600;
+}
+
+.qr-guest-name {
+  font-size: 1.1rem;
+  color: #1e293b;
+  font-weight: 700;
+  margin-bottom: 0.45rem;
+}
+
+.qr-code-img {
+  display: block;
+  margin: 0 auto;
+}
+
+.btn-open-invitation {
+  background-color: var(--creme-bg);
+  color: #475569;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 0.5rem 1.6rem;
+  border-radius: 50px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  margin-top: 0.3rem;
+  transition: transform 0.2s ease;
+}
+
+.btn-open-invitation:hover {
+  transform: translateY(-2px);
+}
+
+/* 2. INFORMASI KEGIATAN */
+.title-cooper-blue {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--blue-accent);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.ticket-box {
+  background-color: var(--blue-bg);
+  color: var(--creme-bg);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  padding: 1.3rem 1.6rem;
+  border-radius: 12px;
+  border: 1.5px dashed #ffffff;
+  margin-bottom: 1.8rem;
+}
+
+.info-grid-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+}
+
+.card-outline {
+  background-color: #ffffff;
+  border: 1.5px solid var(--blue-box);
+  border-radius: 6px;
+  padding: 0.85rem 0.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 155px;
+  box-shadow: 2px 2px 0px var(--blue-box);
+}
+
+.card-head-gold {
+  font-size: 0.8rem;
+  color: var(--gold-accent);
+  font-weight: 800;
+}
+
+.card-desc-blue {
+  font-size: 0.72rem;
+  color: var(--blue-accent);
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.ribbon-decor {
+  font-size: 0.9rem;
+}
+
+/* 3. RUNDOWN */
+.title-cooper-creme {
   font-size: 1.5rem;
-  color: #1d4ed8;
+  font-weight: 800;
+  color: var(--creme-light);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
 }
 
-/* Navigasi Flexbox 1 Dimensi */
-nav {
+.rundown-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.r-row {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.width-time {
+  width: 95px;
+  flex-shrink: 0;
+}
+
+.width-event {
+  flex-grow: 1;
+}
+
+.r-cell {
+  padding: 0.65rem 0.6rem;
+  font-size: 0.76rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.head-gold {
+  background-color: var(--gold-accent);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  justify-content: center;
+}
+
+.bg-time-blue {
+  background-color: var(--blue-accent);
+  color: #ffffff;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.bg-event-creme {
+  background-color: var(--creme-light);
+  color: #1e293b;
+  text-align: left;
+  font-weight: 600;
+}
+
+/* 4. FORM RSVP */
+.title-cooper-gold {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--gold-accent);
+  line-height: 1.35;
+  margin-bottom: 1.8rem;
+}
+
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  padding: 0 0.5rem;
+}
+
+.form-group-line {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-group-line label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--blue-accent);
+  letter-spacing: 0.5px;
+}
+
+.form-group-line input,
+.form-group-line select {
+  font-family: inherit;
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid var(--blue-accent);
+  background: transparent;
+  padding: 0.45rem 0;
+  font-size: 0.9rem;
+  text-align: center;
+  color: var(--text-black);
+  font-weight: 600;
+  outline: none;
+}
+
+.form-group-line input:focus,
+.form-group-line select:focus {
+  border-bottom: 2px solid var(--gold-accent);
+}
+
+.btn-submit-gold {
+  background-color: var(--gold-accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.6rem 2rem;
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+  align-self: center;
+  margin-top: 0.8rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease;
+}
+
+.btn-submit-gold:hover {
+  transform: translateY(-2px);
+}
+
+/* 5. BANTUAN & FOOTER */
+.sec-footer {
+  padding-bottom: 2rem;
+}
+
+.title-cooper-white {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-white);
+  margin-bottom: 1.2rem;
+}
+
+.bantuan-text-black {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-black);
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  padding: 0 0.5rem;
+  letter-spacing: 0.3px;
+}
+
+.pill-nav-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-1);
+  gap: 0.5rem;
+  margin-bottom: 1.8rem;
 }
 
-nav a {
-  text-decoration: none;
-  color: var(--text);
-  padding: var(--space-1) var(--space-2);
-  border-radius: var(--radius);
-  background-color: var(--background);
-  font-weight: 500;
-}
-
-nav a:hover {
-  background-color: #e2e8f0;
-}
-
-/* Komponen Kartu Tamu & QR Code */
-.tamu-card {
-  background: var(--background);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: var(--space-2);
-  text-align: center;
-  width: 100%;
-  max-width: 320px;
-}
-
-.tamu-card img {
-  display: block;
-  margin: var(--space-1) auto;
-  border-radius: 0.5rem;
-  background: #ffffff;
-  padding: 0.25rem;
-}
-
-/* Komponen Section Umum */
-section {
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: var(--space-3);
-}
-
-/* 2. Khusus Kotak Informasi Kegiatan diberi warna KUNING */
-#informasi {
-  background-color: #fef9c3;
-  border-color: #fde047;
-}
-
-section h2 {
-  font-size: 1.25rem;
-  margin-bottom: var(--space-2);
-  border-bottom: 2px solid rgba(0, 0, 0, 0.05);
-  padding-bottom: var(--space-1);
-}
-
-ul {
-  padding-left: 1.25rem;
-}
-
-/* Tabel Susunan Acara */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: var(--space-1);
-}
-
-th, td {
-  padding: var(--space-2);
-  border: 1px solid #000000; /* Garis tabel diubah menjadi hitam */
-  text-align: left;
-}
-
-th {
-  background-color: var(--background);
-}
-
-/* Formulir Konfirmasi RSVP */
-form div {
-  margin-bottom: var(--space-2);
-}
-
-label {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-weight: 500;
-}
-
-input[type="text"],
-input[type="number"],
-select {
-  width: 100%;
-  padding: 0.6rem var(--space-2);
-  border: 1px solid var(--border);
-  border-radius: 0.5rem;
-  font-size: 1rem;
-}
-
-button[type="submit"] {
-  background-color: var(--brand);
+.pill-nav-container a {
+  background-color: var(--blue-accent);
   color: #ffffff;
-  padding: 0.75rem var(--space-3);
-  border: none;
-  border-radius: var(--radius);
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  width: 100%;
+  font-size: 0.72rem;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.45rem 0.95rem;
+  border-radius: 50px;
+  transition: background-color 0.2s ease;
 }
 
-button[type="submit"]:hover {
-  background-color: var(--brand-hover);
+.pill-nav-container a:hover {
+  background-color: #38607e;
 }
 
-footer {
-  text-align: center;
-  margin-top: var(--space-3);
-  color: var(--text-muted);
-  font-size: 0.875rem;
+.copyright-text {
+  font-size: 0.7rem;
+  color: #ffffff;
+  opacity: 0.85;
 }
 
-/* --- Langkah 5 Modul: Media Query Berbasis Kebutuhan Konten --- */
-@media (min-width: 48rem) {
-  header {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: var(--space-2) 2rem;
-  }
-
-  button[type="submit"] {
-    width: auto;
-  }
-}
-
-/* --- Langkah 7 Modul: Aksesibilitas Keyboard & Focus State --- */
-a[href="#main"] {
+/* Aksesibilitas */
+.skip-link {
   position: absolute;
   top: -50px;
   left: 1rem;
-  background: var(--brand);
-  color: #fff;
-  padding: var(--space-1) var(--space-2);
-  border-radius: var(--radius);
-  text-decoration: none;
-  font-weight: bold;
-  z-index: 999;
 }
-
-a[href="#main"]:focus {
+.skip-link:focus {
   top: 1rem;
 }
 
-a:focus-visible, 
-button:focus-visible, 
-input:focus-visible, 
-select:focus-visible {
-  outline: 3px solid #0f172a;
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--gold-accent);
   outline-offset: 2px;
 }
 
-/* Styling untuk baris tabel yang ditandai warna kuning */
-tr.highlight-row {
-  background-color: #fef9c3; /* Warna kuning pastel */
+/* Default Mobile Kecil (< 480px): 1 Kolom agar tidak berhimpitan */
+.info-grid-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+/* Tablet & Desktop (>= 480px): Berubah menjadi 3 Kolom Sejajar */
+@media (min-width: 30rem) {
+  .info-grid-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
