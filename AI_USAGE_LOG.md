@@ -24,7 +24,7 @@ Informasi request berhasil dicatat berdasarkan hasil pengujian pada browser.
 Hasil diperiksa kembali melalui tab Network pada browser.
 - Keputusan Mahasiswa:
 Digunakan sebagai dokumentasi hasil praktikum.
-
+---
 ## Pertemuan 2 - Modul 02: Struktur HTML5 dan Aksesibilitas Web Dasar
 - **Tanggal:** 2 September 2026
 - **Tools AI yang Digunakan:** Gemini AI
@@ -43,10 +43,44 @@ Digunakan sebagai dokumentasi hasil praktikum.
   - Memverifikasi struktur semantik dengan menjalankan halaman di Laragon `http://localhost/pemweb-obe/`.
   - Menguji langsung perpindahan fokus keyboard menggunakan tombol Tab di Google Chrome.
   - Memeriksa keabsahan branch, commit, dan push pada terminal Git.
-=======
 
+===
 - Tanggal: 8 September 2026
 - Tujuan Penggunaan: 
   - Konsultasi penyesuaian judul dan struktur proyek menjadi sistem undangan digital berstandar QR Code dan form RSVP delegasi instansi.
   - Memahami panduan refactoring elemen HTML5 semantik, pembuatan tabel rundown, dan checklist aksesibilitas web dasar.
   - Mempelajari urutan perintah terminal Git untuk pembuatan branch, commit bertahap, dan merge.
+---
+
+## Pertemuan 3 - Modul 03: CSS_Responsive_UIUX
+* Tanggal: 14 September 2026
+
+### 1. Review dan Penyelarasan Latihan Modul 3
+* Topik: Review dan Penyesuaian CSS
+* Prompt Utama: Menyesuaikan kode `style.css` agar memenuhi rubrik latihan CSS Grid, navigasi wrap, dan komparasi satuan ukuran CSS.
+* Kontribusi AI: Memberikan struktur kode penanda komentar khusus untuk jawaban Latihan 1, 2, dan 3.
+* Validasi Mandiri: Memeriksa kembali isi file `style.css`, memastikan tidak ada properti duplikat, dan menguji penerapannya di browser.
+
+### 2. Analisis Kebutuhan Tugas OBE
+* Topik: Pemahaman Instruksi Tugas 3 OBE
+* Prompt Utama: Membedah maksud instruksi Tugas 3 OBE dengan penjelasan analogi yang mudah dipahami.
+* Kontribusi AI: Menguraikan konsep landing page satu halaman, fungsi responsivitas Flexbox/Grid, peran state fokus `:focus-visible`, serta kriteria minimal tiga komponen reusable.
+* Validasi Mandiri: Menentukan strategi implementasi komponen kartu (card), tombol (button), dan isian formulir (form group) sebelum memodifikasi markup HTML.
+
+### 3. Integrasi Desain Visual Canva
+* Topik: Penerapan Layout dan Kode Warna Spesifik
+* Prompt Utama: Mengonversi layout visual dari Canva ke dalam Semantic HTML & CSS menggunakan kode warna HEX presisi dan padanan tipografi.
+* Kontribusi AI: Memetakan skema warna (`#9dc7e8`, `#f6ecdb`, `#f4a82a`, `#4f7b9d`), menyusun HTML semantik, dan menambahkan Google Fonts (*Playfair Display* dan *Plus Jakarta Sans*).
+* Validasi Mandiri: Menguji tampilan dan mengoreksi pembungkus section agar warna latar membentang penuh (full-width) ke tepi layar sementara konten tetap terpusat di tengah.
+
+### 4. Responsivitas dan Penataan Media Query
+* Topik: Pengaturan Breakpoint Mobile ke Desktop
+* Prompt Utama: Mengatur kartu informasi agar tidak berdesakan saat diakses melalui perangkat berlayar sempit.
+* Kontribusi AI: Menyusun aturan media query dengan pendekatan mobile-first (1 kolom default pada mobile dan 3 kolom sejajar pada layar lebih lebar menggunakan CSS Grid).
+* Validasi Mandiri: Menguji perubahan breakpoint menggunakan Google Chrome DevTools pada ukuran 320px, 768px, dan mode desktop penuh.
+
+### 5. Pengujian Aksesibilitas Web
+* Topik: Audit Aksesibilitas (A11y)
+* Prompt Utama: Melakukan pengujian aksesibilitas menggunakan navigasi keyboard dan audit Google Lighthouse.
+* Kontribusi AI: Memberikan panduan pengujian tombol `Tab` (skip-link dan focus ring) serta langkah konfigurasi audit kategori Accessibility pada panel Lighthouse.
+* Validasi Mandiri: Menjalankan audit mandiri hingga menghasilkan skor aksesibilitas 94 dan mendokumentasikan hasil tangkapan layar untuk laporan.

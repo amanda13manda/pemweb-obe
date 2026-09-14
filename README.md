@@ -31,6 +31,8 @@ Visual Studio Code
 Proyek telah diuji melalui browser menggunakan alamat:
 http://localhost/pemweb-obe/
 
+---
+
 ## Progres Pertemuan 2 - Struktur HTML5 & Aksesibilitas
 - Menerapkan struktur HTML5 semantik (header, nav, main, section, article, form, footer).
 - Melakukan pengujian aksesibilitas navigasi berbasis keyboard menggunakan tombol Tab.
@@ -48,3 +50,35 @@ http://localhost/pemweb-obe/
 - Pengerjaan fitur menggunakan *branch* khusus: `feature/struktur-home`
 - Riwayat *commit* terstruktur dan bermakna.
 - Digabungkan ke *branch* utama (`main`) melalui proses merge.
+---
+
+## Progres Pertemuan 3 - CSS Responsive UIUX
+Proyek ini adalah landing page responsif dan aksesibel untuk sistem manajemen undangan dan presensi kegiatan Seminar Himpunan Mahasiswa Teknik Komputer (HMTK). Desain antarmuka dirancang dengan tema warna resmi Canva (kombinasi biru pastel `#9dc7e8`, krem `#f6ecdb`, dan aksen emas `#f4a82a`), serta menerapkan tata letak vertikal elegan yang adaptif pada semua ukuran layar perangkat.
+
+## Fitur dan Implementasi 
+
+1. Semantic HTML5 & Hierarki Konten:
+   - Menggunakan tag struktural semantik: `<header>`, `<main>`, `<section>`, `<nav>`, `<table>`, `<form>`, dan `<footer>`.
+   - Struktur heading terurut logis mulai dari `<h1>` hingga `<h4>`.
+
+2. CSS Custom Properties (`:root`):
+   - Manajemen palet warna terpusat (`--blue-bg`, `--creme-bg`, `--gold-accent`, `--blue-accent`, dll.).
+   - Standardisasi font kustom (*Playfair Display* dan *Plus Jakarta Sans*).
+
+3. Responsive Layout (Flexbox & CSS Grid):
+   - Flexbox: Digunakan untuk penataan cover hero di tengah dan navigasi pill bawah dengan `flex-wrap: wrap` (mencegah *horizontal scrolling*).
+   - CSS Grid: Digunakan pada 3 kartu informasi kegiatan (`.info-grid-cards`) dengan pembagian unit fraksi `fr`.
+   - Media Queries: Mengatur transisi tata letak kartu dari 1 kolom pada mobile (< 480px) menjadi 3 kolom sejajar pada tablet/desktop (>= 480px).
+   - Full-Width Section: Latar belakang tiap section membentang penuh ke tepi layar, sementara konten utama tetap terpusat secara rapi.
+
+4. Komponen Reusable:
+   - Card Component: Wadah informasi dengan border kontras dan aksen drop-shadow khas sketsa.
+   - Button Component: Tombol bergaya kapsul (pill shape) untuk aksi utama dan menu pintasan.
+   - Form Group Component: Baris input minimalis dengan border bawah dan label kapital terstruktur.
+
+5. Aksesibilitas (A11y):
+   - Skip Link (`Lewati ke konten utama`) untuk pembaca layar (screen reader).
+   - Indikator fokus keyboard visual yang jelas via `:focus-visible`.
+   - Atribut `alt` deskriptif pada gambar QR Code dan logo.
+   - Lolos audit otomatis Google Lighthouse dengan skor Aksesibilitas 94.
+---
