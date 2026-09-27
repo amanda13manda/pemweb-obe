@@ -395,3 +395,28 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* --- DARK MODE LATAR BELAKANG  --- */
+[data-theme="dark"] {
+  --blue-bg: #22384c;         /* Biru latar jadi lebih gelap */
+  --creme-bg: #2d261e;        /* Krem latar jadi lebih gelap */
+  /* Variabel warna lain dibiarkan tetap seperti semula agar teks/tabel tidak ikut berubah */
+}
+
+[data-theme="dark"] body {
+  background-color: var(--blue-bg);
+}
+
+[data-theme="dark"] .section-full.bg-blue {
+  background-color: var(--blue-bg) !important;
+}
+
+[data-theme="dark"] .section-full.bg-creme {
+  background-color: var(--creme-bg) !important;
+}
+/* Efek kartu saat membentang menampilkan detail */
+.card.expanded {
+  grid-column: 1 / -1 !important;
+  background-color: var(--creme-light) !important;
+  border: 2px solid var(--gold-accent);
+}

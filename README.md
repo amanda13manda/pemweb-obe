@@ -82,3 +82,40 @@ Proyek ini adalah landing page responsif dan aksesibel untuk sistem manajemen un
    - Atribut `alt` deskriptif pada gambar QR Code dan logo.
    - Lolos audit otomatis Google Lighthouse dengan skor Aksesibilitas 94.
 ---
+
+## Progres Pertemuan 5 - DOM, EVENT, WEB STORAGE, DAN DYNAMIC UI
+implementasi lanjutan dari interaksi DOM dinamis, penggunaan Event Listener, serta penerapan Web Storage sederhana untuk pengaturan tema aplikasi (Light/Dark Mode).
+
+## Dokumentasi Alur Event 
+Sistem pada aplikasi ini menggunakan 3 interaksi utama berbasis DOM Events:
+
+### 1. Alur Event: Filter Status Kehadiran (`click`)
+* Elemen Terkait: Kumpulan tombol filter (`Semua`, `Akan Hadir`, `Berhalangan`).
+* Alur Eksekusi:
+  1. Pengguna mengklik salah satu tombol filter status kehadiran.
+  2. *Event listener* tipe `'click'` mendeteksi klik dan membaca atribut data dari tombol tersebut (`button.dataset.filter`).
+  3. Berdasarkan nilai filter, data array tamu (`dataTamuUnangan`) disaring menggunakan metode `.filter()`.
+  4. Fungsi `renderItems(hasil)` dipanggil untuk menghapus elemen lama dan merender ulang kartu tamu yang sesuai ke dalam DOM secara dinamis.
+
+### 2. Alur Event: Pencarian Real-Time (`input`)
+* Elemen Terkait: Kolom input pencarian (`searchInput`).
+* Alur Eksekusi:
+  1. Pengguna mengetikkan nama delegasi atau instansi pada kolom pencarian.
+  2. Event listener tipe `'input'` memicu fungsi setiap kali ada perubahan nilai teks pada input.
+  3. Nilai input diubah menjadi huruf kecil (lowercase) untuk pencarian yang case-insensitive.
+  4. Data tamu disaring berdasarkan kecocokan string pada atribut `delegasi` atau `instansi`.
+  5. Fungsi `renderItems(hasilPencarian)` mengeksekusi pembaruan tampilan kartu tamu di layar seketika tanpa *reload* halaman.
+
+### 3. Alur Event: Tombol Detail Interaktif (*Event Delegation* - `click`)
+* Elemen Terkait: Kontainer daftar tamu (`daftar`) dan tombol "Detail Tamu".
+* Alur Eksekusi:
+  1. Pengguna mengklik tombol "Detail Tamu" pada salah satu kartu.
+  2. Alih-alih memasang event listener di setiap tombol, teknik Event Delegation mendeteksi klik pada kontainer utama yang mengarah ke elemen ber-atribut `[data-detail]`.
+  3. Skrip mencari elemen detail terdekat (`.card-detail-content`) dari kartu yang diklik.
+  4. Status tampilan (display style) diubah secara kondisional (`'block'` / `'none'`), teks tombol berganti antara "Detail Tamu" dan "Tutup Detail", serta tata letak CSS grid disesuaikan secara dinamis.
+
+
+## Penerapan State Sederhana / Web Storage
+* Aplikasi menggunakan `localStorage` untuk menyimpan preferensi tema pengguna (`theme: 'light'` atau `'theme' : 'dark'`).
+* Saat halaman dimuat ulang (refresh), skrip membaca state dari `localStorage` agar preferensi tema pengguna tetap terjaga secara konsisten.
+---

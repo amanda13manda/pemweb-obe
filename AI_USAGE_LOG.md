@@ -84,3 +84,17 @@ Digunakan sebagai dokumentasi hasil praktikum.
 * Prompt Utama: Melakukan pengujian aksesibilitas menggunakan navigasi keyboard dan audit Google Lighthouse.
 * Kontribusi AI: Memberikan panduan pengujian tombol `Tab` (skip-link dan focus ring) serta langkah konfigurasi audit kategori Accessibility pada panel Lighthouse.
 * Validasi Mandiri: Menjalankan audit mandiri hingga menghasilkan skor aksesibilitas 94 dan mendokumentasikan hasil tangkapan layar untuk laporan.
+---
+
+## Pertemuan 5 - DOM, EVENT, WEB STORAGE, DAN DYNAMIC UI
+* Tanggal: 23-27 September 2026
+
+### 1. Analisis Kebutuhann
+* Diskusi Logika Interaksi DOM: Membantu memvalidasi struktur kode untuk 3 interaksi bermakna (Filter, Real-time Search, dan Event Delegation).
+* Penerapan Web Storage: Membantu merumuskan logika penyimpanan preferensi tema (Light/Dark mode) menggunakan `localStorage.getItem` dan `setItem`.
+* Penyusunan Format Dokumentasi: Membantu menstrukturkan laporan alur event agar sesuai dengan rubrik penilaian tugas OBE.
+
+### 2. Verifikasi dan Pengujian
+* Seluruh potongan kode yang disarankan telah diuji secara mandiri (self-tested) dengan menjalankan proyek secara lokal melalui server lokal / browser.
+* Memastikan tab Console pada Developer Tools bebas dari pesan galat (error bebas) dan fungsi berjalan sesuai harapan.
+---
