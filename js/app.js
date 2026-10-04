@@ -175,3 +175,116 @@ if (themeButton) {
 // PANGGILAN UTAMA: Render data saat pertama kali halaman dimuat dengan batasan dari localStorage
 const initialData = dataTamuUndangan.slice(0, currentLimit);
 renderItems(initialData);
+
+// VALIDASI 
+const formRsvp = document.querySelector('#form-rsvp');
+const formStatus = document.querySelector('#form-status');
+
+function validateForm(data) {
+    const errors = {};
+    
+    // --- LATIHAN 3: Pesan Error Berbeda untuk Field Kosong & Format Tidak Valid ---
+    
+    // 1. Validasi Asal Instansi
+    const instansi = String(data.get('nama_instansi') ?? '').trim();
+    if (instansi === '') {
+        errors.nama_instansi = 'Kolom asal instansi wajib diisi.'; // Pesan khusus jika kosong
+    } else if (instansi.length < 3) {
+        errors.nama_instansi = 'Asal instansi minimal harus 3 karakter.'; // Pesan khusus jika format/panjang salah
+    }
+
+    // 2. Validasi Nama Delegasi
+    const delegasi = String(data.get('nama_delegasi') ?? '').trim();
+    if (delegasi === '') {
+        errors.nama_delegasi = 'Kolom nama delegasi wajib diisi.'; // Pesan khusus jika kosong
+    } else if (delegasi.length < 3) {
+        errors.nama_delegasi = 'Nama delegasi minimal harus 3 karakter.'; // Pesan khusus jika format salah
+    }
+
+    // 3. Validasi Jumlah Hadir (Angka)
+    const jumlahRaw = data.get('jumlah_hadir');
+    const jumlah = Number(jumlahRaw);
+    if (jumlahRaw === '') {
+        errors.jumlah_hadir = 'Jumlah hadir wajib diisi.';
+    } else if (!Number.isInteger(jumlah) || jumlah < 1) {
+        errors.jumlah_hadir = 'Jumlah hadir tidak valid (minimal 1 orang).';
+    }
+
+    // --- LATIHAN 2: Validasi Kategori / Pilihan Hanya Boleh dari Opsi yang Tersedia ---
+    const statusKehadiran = String(data.get('status_kehadiran') ?? '').trim();
+    const opsiSah = ['Akan Hadir', 'Berhalangan']; // Daftar pilihan yang diizinkan
+    
+    if (statusKehadiran === '') {
+        errors.status_kehadiran = 'Silakan pilih status kehadiran terlebih dahulu.';
+    } else if (!opsiSah.includes(statusKehadiran)) {
+        errors.status_kehadiran = 'Pilihan status kehadiran tidak sah atau tidak tersedia.';
+    }
+
+    return errors;
+}
+
+if (formRsvp) {
+    formRsvp.addEventListener('submit', event => {
+        event.preventDefault(); // Jangan kirim ke server dulu
+        
+        const data = new FormData(formRsvp);
+        const errors = validateForm(data);
+
+        // Bersihkan error sebelumnya
+        document.querySelectorAll('.error').forEach(el => el.textContent = '');
+        document.querySelectorAll('[aria-invalid="true"]').forEach(el => el.removeAttribute('aria-invalid'));
+        if (formStatus) {
+            formStatus.textContent = '';
+            formStatus.style.backgroundColor = 'transparent';
+        }
+
+        // Jika ditemukan error
+        if (Object.keys(errors).length > 0) {
+            for (const [field, message] of Object.entries(errors)) {
+                const errorElement = document.querySelector(`#error-${field}`);
+                if (errorElement) {
+                    errorElement.textContent = message;
+                }
+                if (formRsvp.elements[field]) {
+                    formRsvp.elements[field].setAttribute('aria-invalid', 'true');
+                }
+            }
+
+            // Fokus otomatis ke elemen error pertama
+            const firstField = Object.keys(errors)[0];
+            if (formRsvp.elements[firstField]) {
+                formRsvp.elements[firstField].focus();
+            }
+
+            if (formStatus) {
+                formStatus.textContent = 'Periksa kembali data yang belum valid.';
+                formStatus.style.color = '#d9534f';
+                formStatus.style.backgroundColor = '#fdf7f7';
+            }
+            return;
+        }
+
+        // Jika lolos semua validasi Latihan
+        if (formStatus) {
+            formStatus.textContent = 'Data valid dan sukses! (Berhasil ditambahkan ke daftar)';
+            formStatus.style.color = '#3c763d';
+            formStatus.style.backgroundColor = '#dff0d8';
+        }
+
+        // Tambahkan ke tabel interaktif secara dinamis
+        addDataBaru(data.get('nama_instansi'), data.get('nama_delegasi'), Number(data.get('jumlah_hadir')), data.get('status_kehadiran'));
+    });
+}
+
+function addDataBaru(instansi, delegasi, jumlah, status) {
+    const newDataItem = {
+        id: dataTamuUndangan.length + 1,
+        instansi: instansi,
+        delegasi: delegasi,
+        jumlah: jumlah,
+        status: status,
+        lokasi: 'Auditorium Lt. 4'
+    };
+    dataTamuUndangan.push(newDataItem);
+    renderItems(dataTamuUndangan.slice(0, currentLimit));
+}

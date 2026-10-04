@@ -101,32 +101,42 @@
             <div class="content-center">
                 <h2 class="title-cooper-gold">FORM KONFIRMASI KEHADIRAN<br>(RSVP)</h2>
 
-                <form action="#" method="post" class="rsvp-form">
+                <!-- Tambahkan id="form-rsvp" dan atribut novalidate -->
+                <form id="form-rsvp" action="#" method="post" class="rsvp-form" novalidate>
                     <div class="form-group-line">
                         <label for="nama_instansi">ASAL INSTANSI / HIMPUNAN</label>
-                        <input type="text" id="nama_instansi" name="nama_instansi" required>
+                        <input type="text" id="nama_instansi" name="nama_instansi">
+                        <!-- Tambahkan tempat pesan error -->
+                        <span class="error" id="error-nama_instansi" style="color: #d9534f; font-size: 0.85em; display: block; margin-top: 4px;"></span>
                     </div>
 
                     <div class="form-group-line">
                         <label for="nama_delegasi">NAMA PERWAKILAN / DELEGASI YANG HADIR</label>
-                        <input type="text" id="nama_delegasi" name="nama_delegasi" required>
+                        <input type="text" id="nama_delegasi" name="nama_delegasi">
+                        <span class="error" id="error-nama_delegasi" style="color: #d9534f; font-size: 0.85em; display: block; margin-top: 4px;"></span>
                     </div>
 
                     <div class="form-group-line">
                         <label for="jumlah_hadir">JUMLAH ORANG YANG HADIR</label>
-                        <input type="number" id="jumlah_hadir" name="jumlah_hadir" min="1" max="5" value="1" required>
+                        <input type="number" id="jumlah_hadir" name="jumlah_hadir" min="1" max="5" value="1">
+                        <span class="error" id="error-jumlah_hadir" style="color: #d9534f; font-size: 0.85em; display: block; margin-top: 4px;"></span>
                     </div>
 
                     <div class="form-group-line">
                         <label for="status_kehadiran">KONFIRMASI KEHADIRAN</label>
-                        <select id="status_kehadiran" name="status_kehadiran" required>
-                            <option value="hadir">Akan Hadir</option>
-                            <option value="berhalangan">Berhalangan Hadir</option>
+                        <select id="status_kehadiran" name="status_kehadiran">
+                            <option value="">-- Pilih Status --</option>
+                            <option value="Akan Hadir">Akan Hadir</option>
+                            <option value="Berhalangan">Berhalangan</option>
                         </select>
+                        <span class="error" id="error-status_kehadiran" style="color: #d9534f; font-size: 0.85em; display: block; margin-top: 4px;"></span>
                     </div>
 
                     <button type="submit" class="btn-submit-gold">Kirim Konfirmasi</button>
                 </form>
+
+                <!-- Tempat status pesan sukses/gagal di bawah form -->
+                <div id="form-status" style="margin-top: 15px; font-weight: bold; padding: 10px; border-radius: 4px;"></div>
             </div>
         </section>
          

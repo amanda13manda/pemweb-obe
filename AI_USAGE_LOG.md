@@ -98,3 +98,13 @@ Digunakan sebagai dokumentasi hasil praktikum.
 * Seluruh potongan kode yang disarankan telah diuji secara mandiri (self-tested) dengan menjalankan proyek secara lokal melalui server lokal / browser.
 * Memastikan tab Console pada Developer Tools bebas dari pesan galat (error bebas) dan fungsi berjalan sesuai harapan.
 ---
+## Pertemuan 6 - FORM, VALIDASI, ACCESSIBILITY, DAN INPUT HANDLING 
+* Tanggal: 30 September-4 Oktober 2026
+### 1. Analisis Kebutuhan
+  * *Validasi Bisnis dan Aksesibilitas:* Membantu merumuskan logika penanganan *error* bersyarat, penerapan atribut `aria-invalid`, serta pemindahan fokus otomatis untuk mendukung navigasi *keyboard* pembaca layar.
+  * *Penyusunan Dokumentasi Review:* Membantu menyusun temuan hasil peninjauan kode dan perbaikan form agar sesuai dengan rubrik Tugas OBE.
+
+### 2. Verifikasi dan Pengujian
+  * *Pengujian Mandiri:* Seluruh penyesuaian kode pada `index.html` dan `app.js` telah diuji secara lokal di peramban web untuk memastikan pesan kesalahan muncul dengan benar.
+  * *Penyimpanan Commit:* Memastikan riwayat perbaikan dicatat dan disimpan ke dalam repositori Git lokal.
+---

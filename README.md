@@ -119,3 +119,10 @@ Sistem pada aplikasi ini menggunakan 3 interaksi utama berbasis DOM Events:
 * Aplikasi menggunakan `localStorage` untuk menyimpan preferensi tema pengguna (`theme: 'light'` atau `'theme' : 'dark'`).
 * Saat halaman dimuat ulang (refresh), skrip membaca state dari `localStorage` agar preferensi tema pengguna tetap terjaga secara konsisten.
 ---
+## Peer / Code Review dan Validasi Form (pertemuan 6)
+* Komponen Terkait: Form RSVP (`#form-rsvp`), fungsi validasi bisnis (`validateForm`), serta atribut aksesibilitas (`aria-invalid` dan pengelolaan fokus).
+* Alur Peninjauan & Perbaikan:
+  1. *Peer review* dilakukan untuk mengevaluasi pengalaman pengguna dan aksesibilitas form saat terjadi kesalahan pengisian data.
+  2. Atribut HTML `novalidate` diterapkan untuk menonaktifkan validasi bawaan peramban agar digantikan dengan logika penanganan kustom di JavaScript.
+  3. Pesan *error* dipisahkan secara spesifik antara kondisi *field* kosong dan panjang karakter minimum yang tidak sesuai.
+  4. Atribut aksesibilitas `aria-invalid="true"` ditambahkan secara dinamis dan peramban diarahkan memindahkan fokus kursor secara otomatis ke *field* error pertama menggunakan fungsi `.focus()`.
