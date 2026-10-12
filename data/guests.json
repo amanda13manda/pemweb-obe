@@ -1,0 +1,8 @@
+[
+  { "id": 1, "instansi": "HIMATRO", "delegasi": "Ahmad Fauzi", "jumlah": 2, "status": "Akan Hadir", "lokasi": "Auditorium Lt. 4" },
+  { "id": 2, "instansi": "HIMASIKOM", "delegasi": "Siti Nurhaliza", "jumlah": 3, "status": "Akan Hadir", "lokasi": "Auditorium Lt. 4" },
+  { "id": 3, "instansi": "BEM FT", "delegasi": "Rian Pratama", "jumlah": 1, "status": "Berhalangan", "lokasi": "Auditorium Lt. 4" },
+  { "id": 4, "instansi": "DPM FT", "delegasi": "Dewi Lestari", "jumlah": 2, "status": "Akan Hadir", "lokasi": "VIP Lounge" },
+  { "id": 5, "instansi": "UKM Robotika", "delegasi": "Budi Santoso", "jumlah": 1, "status": "Berhalangan", "lokasi": "Auditorium Lt. 4" },
+  { "id": 6, "instansi": "HMTE", "delegasi": "Maya Anggraini", "jumlah": 2, "status": "Akan Hadir", "lokasi": "Auditorium Lt. 4" }
+]

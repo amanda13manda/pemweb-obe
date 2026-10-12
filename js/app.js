@@ -1,43 +1,86 @@
 import { ringkasPresensi } from './utils.js';
 
-// Data koleksi (utama) entitas proyek
-const dataTamuUndangan = [
-    { id: 1, instansi: 'HIMATRO', delegasi: 'Ahmad Fauzi', jumlah: 2, status: 'Akan Hadir', lokasi: 'Auditorium Lt. 4' },
-    { id: 2, instansi: 'HIMASIKOM', delegasi: 'Siti Nurhaliza', jumlah: 3, status: 'Akan Hadir', lokasi: 'Auditorium Lt. 4' },
-    { id: 3, instansi: 'BEM FT', delegasi: 'Rian Pratama', jumlah: 1, status: 'Berhalangan', lokasi: 'Auditorium Lt. 4' },
-    { id: 4, instansi: 'DPM FT', delegasi: 'Dewi Lestari', jumlah: 2, status: 'Akan Hadir', lokasi: 'VIP Lounge' },
-    { id: 5, instansi: 'UKM Robotika', delegasi: 'Budi Santoso', jumlah: 1, status: 'Berhalangan', lokasi: 'Auditorium Lt. 4' }
-];
+// Variabel global untuk menampung data tamu dari API/JSON
+let dataTamuUndangan = [];
+let currentLimit = Number(localStorage.getItem('itemsLimit')) ?? 5;
 
-// Filter tamu yang terkonfirmasi "Akan Hadir"
-const tamuAkanHadir = dataTamuUndangan.filter(tamu => tamu.status === 'Akan Hadir');
-
-// Map untuk mengambil array nama instansi
-const daftarInstansi = dataTamuUndangan.map(({ instansi }) => instansi);
-
-// Reduce untuk menghitung total kapasitas kursi seluruh tamu
-const totalKapasitasKursi = dataTamuUndangan.reduce((sum, tamu) => sum + tamu.jumlah, 0);
-
-// Eksekusi fungsi statistik dengan try...catch (Error Handling)
-try {
-    const ringkasanData = ringkasPresensi(dataTamuUndangan);
-
-    console.log("1. Data Tamu Akan Hadir (filter):");
-    console.table(tamuAkanHadir);
-
-    console.log("2. Daftar Nama Instansi (map):", daftarInstansi);
-    console.log(`3. Total Kapasitas Kursi (reduce): ${totalKapasitasKursi} orang`);
-
-    console.log("4. Ringkasan Statistik Presensi (utils.js):", ringkasanData);
-} catch (error) {
-    console.error("Terjadi galat pengolahan data:", error.message);
-}
-
-// Menangkap Elemen dari HTML
+// Tangkap elemen pendukung API di HTML
 const daftar = document.querySelector('#daftar-alat');
+const btnRetry = document.querySelector('#btn-retry');
+const apiStatusBox = document.querySelector('#api-status-box');
+const retryContainer = document.querySelector('#retry-container');
 const tombolFilter = document.querySelectorAll('[data-filter]');
 const searchInput = document.querySelector('#search');
 const themeButton = document.querySelector('#theme-button');
+const limitSelect = document.querySelector('#limit-select');
+
+// --- FUNGSI UTAMA FETCH DATA DENGAN ASYNC/AWAIT ---
+async function loadTamuData() {
+  // 1. Loading State
+  if (apiStatusBox) {
+    apiStatusBox.style.display = 'block';
+    apiStatusBox.textContent = 'Memuat data tamu dari server...';
+    apiStatusBox.style.color = '#38729f';
+    apiStatusBox.style.backgroundColor = '#e9e5d4';
+  }
+  if (retryContainer) retryContainer.style.display = 'none';
+
+  try {
+    // Lakukan request fetch ke file JSON lokal (atau endpoint REST API)
+    const response = await fetch('./data/guests.json');
+
+    // 2. Periksa response.ok (Menangani error HTTP 404/500)[cite: 24, 36, 37]
+    if (!response.ok) {
+      throw new Error(`HTTP Error! Status: ${response.status}`);
+    }
+
+    // 3. Parse data JSON ke object JavaScript[cite: 24, 36]
+    dataTamuUndangan = await response.json();
+
+    // Sembunyikan box status jika berhasil
+    if (apiStatusBox) {
+      apiStatusBox.style.display = 'none';
+    }
+
+    // Jalankan inisialisasi render dan statistik
+    inisialisasiDashboard();
+
+  } catch (error) {
+    console.error("Gagal memuat data:", error);
+    
+    // 4. Error State & Tombol Retry[cite: 25, 38, 43]
+    if (apiStatusBox) {
+      apiStatusBox.style.display = 'block';
+      apiStatusBox.textContent = 'Data gagal dimuat. Periksa koneksi atau path file JSON.';
+      apiStatusBox.style.color = '#d9534f';
+      apiStatusBox.style.backgroundColor = '#fdf7f7';
+    }
+    if (retryContainer) {
+      retryContainer.style.display = 'block';
+    }
+  }
+}
+
+// Event Listener untuk Tombol Retry
+if (btnRetry) {
+  btnRetry.addEventListener('click', () => {
+    loadTamuData();
+  });
+}
+
+// Fungsi Inisialisasi setelah data sukses ditarik
+function inisialisasiDashboard() {
+  try {
+    const ringkasanData = ringkasPresensi(dataTamuUndangan);
+    console.log("Ringkasan Statistik Presensi:", ringkasanData);
+  } catch (error) {
+    console.error("Terjadi galat pengolahan data:", error.message);
+  }
+
+  // Render awal sesuai limit localStorage
+  const initialData = dataTamuUndangan.slice(0, currentLimit);
+  renderItems(initialData);
+}
 
 // Fungsi Render DOM Aman (Menggunakan createElement & textContent)
 function renderItems(items) {
@@ -134,13 +177,6 @@ if (daftar) {
     }
   });
 }
-
-// 1. Tangkap elemen select limit di HTML
-const limitSelect = document.querySelector('#limit-select');
-
-// 2. Ambil data tersimpan dari localStorage atau gunakan default (misal: 5)
-let currentLimit = Number(localStorage.getItem('itemsLimit')) ?? 5;
-
 // Jika elemen select ada di HTML, sinkronkan nilainya dengan localStorage
 if (limitSelect) {
   limitSelect.value = currentLimit;
@@ -172,9 +208,8 @@ if (themeButton) {
   });
 }
 
-// PANGGILAN UTAMA: Render data saat pertama kali halaman dimuat dengan batasan dari localStorage
-const initialData = dataTamuUndangan.slice(0, currentLimit);
-renderItems(initialData);
+// Memulai proses fetch data saat halaman dimuat
+loadTamuData();
 
 // VALIDASI 
 const formRsvp = document.querySelector('#form-rsvp');
