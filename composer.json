@@ -1,0 +1,13 @@
+{
+    "name": "amanda/pemweb-obe",
+    "description": "Proyek Backend REST API Pemrograman Web",
+    "type": "project",
+    "require": {},
+    "authors": [
+        {
+            "name": "Amanda",
+            "email": "amanda@student.ubt.ac.id"
+        }
+    ],
+    "minimum-stability": "stable"
+}

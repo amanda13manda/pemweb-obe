@@ -108,3 +108,28 @@ Digunakan sebagai dokumentasi hasil praktikum.
   * *Pengujian Mandiri:* Seluruh penyesuaian kode pada `index.html` dan `app.js` telah diuji secara lokal di peramban web untuk memastikan pesan kesalahan muncul dengan benar.
   * *Penyimpanan Commit:* Memastikan riwayat perbaikan dicatat dan disimpan ke dalam repositori Git lokal.
 ---
+
+## Pertemuan 7 - REST API INTEGRATION, ASYNC/AWAIT, DAN STATE MANAGEMENT
+* **Tanggal:** 7-11 Oktober 2026
+
+### 1. Analisis Kebutuhan
+* **Integrasi Fetch & Async/Await:** Membantu menyusun struktur fungsi `loadTamuData()` asinkron untuk penarikan data dari mock API JSON.
+* **Pengelolaan State UI Kompleks:** Merumuskan logika pengubahan tampilan antarmuka untuk 4 state dinamis: *Loading*, *Success*, *Error (dengan tombol Retry)*, serta *Empty State*.
+* **Penanganan Galat (Error Handling):** Menyusun blok `try...catch` dan pemeriksaan `response.ok` untuk mengantisipasi kegagalan jaringan atau kesalahan path file.
+
+### 2. Verifikasi dan Pengujian
+* **Pengujian State Komunikasi:** Menguji transisi *Loading State* ke *Success State* serta menyimulasikan kegagalan *fetch* untuk memverifikasi penampilan *Error State* dan tombol *Retry*.
+* **Verifikasi Filter & Search Lokal:** Memastikan proses pemfilteran dan pencarian data dilakukan dari memori *array* lokal tanpa melakukan panggilan API berulang (*keypress*).
+---
+
+## Pertemuan 9 - BACK-END PHP DAN REST API
+* **Tanggal:** 25 Oktober 2026
+
+### 1. Analisis Kebutuhan
+* **Struktur Server PHP Laragon:** Membantu menyiapkan direktori proyek pada `C:\laragon\www\pemweb-obe` dan mengonfigurasi endpoint berbasis Apache.
+* **Middleware & Header Content-Type:** Merumuskan penempatan header `application/json` agar setiap respons API konsisten secara global.
+* **Validasi & Error Handling:** Menyusun blok try-catch untuk menangkap JSON rusak (`400`), validasi panjang nama & pax (`422`), serta penanganan method tidak diizinkan (`405`).
+
+### 2. Verifikasi dan Pengujian
+* **Pengujian Endpoint via Console/Network:** Memverifikasi status code HTTP (`200`, `201`, `400`, `422`, `405`) menggunakan *fetch* di *Browser Console* dan *DevTools Network*.
+* **Konfigurasi Git & Environment:** Memastikan file `.env` terabaikan oleh `.gitignore` sementara `.composer.json` dan `.env.example` tercatat dengan baik.

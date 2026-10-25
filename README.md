@@ -126,3 +126,37 @@ Sistem pada aplikasi ini menggunakan 3 interaksi utama berbasis DOM Events:
   2. Atribut HTML `novalidate` diterapkan untuk menonaktifkan validasi bawaan peramban agar digantikan dengan logika penanganan kustom di JavaScript.
   3. Pesan *error* dipisahkan secara spesifik antara kondisi *field* kosong dan panjang karakter minimum yang tidak sesuai.
   4. Atribut aksesibilitas `aria-invalid="true"` ditambahkan secara dinamis dan peramban diarahkan memindahkan fokus kursor secara otomatis ke *field* error pertama menggunakan fungsi `.focus()`.
+---
+
+## Dokumentasi REST API & Integration State (Pertemuan 7)
+- **Endpoint / Source:** `js/data/guests.json` (Local Mock API)
+- **HTTP Method:** `GET`
+- **Format Data:** `JSON (Array of Objects)`
+
+### Pengelolaan State Komunikasi API:
+1. **Loading State:**
+   - Menampilkan kotak indikator `#api-status-box` dengan teks *"Memuat data tamu dari server..."* saat proses asynchronous `fetch()` sedang berjalan.
+2. **Success State:**
+   - Menyembunyikan indikator status, melakukan *parsing* JSON ke array `dataTamuUndangan`, dan memanggil fungsi render untuk menampilkan seluruh kartu tamu ke antarmuka.
+3. **Error State & Retry:**
+   - Jika *request* gagal (HTTP Status error atau path file salah), sistem menangkap pesan kesalahan melalui blok `catch(error)`.
+   - Menampilkan kotak status berwarna merah (*"Data gagal dimuat. Periksa koneksi atau path file JSON."*) dan memunculkan tombol Retry (`#btn-retry`) untuk memfasilitasi pengulangan *request*.
+4. **Empty State:**
+   - Ketika proses pencarian atau pemfilteran menghasilkan array kosong, antarmuka akan merender pesan khusus: *"Tidak ada data tamu yang ditemukan."*
+   ---
+
+   ## Dokumentasi Back-End PHP dan REST API (Pertemuan 9)
+* **Endpoint / Source:** `api/health.php` & `api/tamu.php` (Laragon Apache Server)
+* **HTTP Method:** `GET`, `POST`, serta penanganan method (`405`)
+* **Format Data:** `JSON` (Strict Types & Content-Type Middleware)
+
+### Pengelolaan Back-End & Validasi API:
+1. **Health Check Endpoint:**
+   - Menyediakan `api/health.php` untuk memastikan status server berjalan dengan baik melalui respons JSON `{"status":"ok"}`.
+2. **REST API & Validasi Input (`tamu.php`):**
+   - Menerapkan middleware header `Content-Type: application/json` di awal skrip.
+   - Menangani *request* `GET` untuk mengambil daftar data tamu sementara.
+   - Menangani *request* `POST` dengan validasi ketat: mendeteksi format JSON rusak (`400`), serta validasi aturan bisnis seperti panjang nama maksimal 100 karakter dan jumlah pax minimal 1 (`422`).
+3. **Konfigurasi Lingkungan & Package Management:**
+   - Inisialisasi dependensi menggunakan Composer (`composer.json`).
+   - Menerapkan konfigurasi sensitif pada file `.env` dan menyediakan template `.env.example`, serta mengamankan file lokal melalui `.gitignore`.
