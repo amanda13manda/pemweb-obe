@@ -160,3 +160,22 @@ Sistem pada aplikasi ini menggunakan 3 interaksi utama berbasis DOM Events:
 3. **Konfigurasi Lingkungan & Package Management:**
    - Inisialisasi dependensi menggunakan Composer (`composer.json`).
    - Menerapkan konfigurasi sensitif pada file `.env` dan menyediakan template `.env.example`, serta mengamankan file lokal melalui `.gitignore`.
+---
+
+## Dokumentasi Basis Data & Integration State (Pertemuan 10)
+
+- **Database Server:** MySQL / MariaDB via Laragon (`127.0.0.1`)
+- **Database Name:** `pemweb_obe`
+- **ORM / Database Access Layer:** PDO (PHP Data Objects)
+
+### Perancangan & Integrasi Basis Data:
+1. **Struktur Relasi & ERD:**
+   - Membangun 3 tabel utama yang saling berelasi: `users` (Admin/Petugas), `kategori_tamu` (Kategori Undangan), dan `tamu_undangan` (Data Tamu).
+   - Menetapkan integritas data menggunakan `FOREIGN KEY` dengan aturan `ON DELETE CASCADE` antara `tamu_undangan` dan `kategori_tamu` serta `users`.
+2. **Optimasi Kinerja (Indexing):**
+   - Menambahkan indeks pada kolom `instansi` (`idx_instansi`) dan `delegasi` (`idx_delegasi`) pada tabel `tamu_undangan` untuk mempercepat query pencarian (*WHERE/LIKE*) dan menghindari *Full Table Scan*.
+3. **Keamanan Environment & Credentials:**
+   - Mengisolasi kredensial basis data pada file `.env` di luar repositori Git dan mengonfigurasi `config/database.php` dengan penanganan enkapsulasi exception `PDO::ATTR_ERRMODE`.
+4. **Proteksi Prepared Statement:**
+   - Menerapkan query terparameterisasi (*Prepared Statements*) pada endpoint API `api/tamu.php` untuk memisahkan logika SQL dari data input pengguna, sehingga mencegah celah keamanan **SQL Injection**.
+---

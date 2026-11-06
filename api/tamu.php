@@ -1,71 +1,53 @@
 <?php
 declare(strict_types=1);
 
-// Middleware sederhana untuk memastikan Header selalu JSON
+require_once dirname(__DIR__) . '/config/database.php';
+
+// Middleware Header JSON
 header('Content-Type: application/json; charset=utf-8');
 
 $method = $_SERVER['REQUEST_METHOD'];
 
-// 1. ENDPOINT GET: Mengambil daftar data tamu sementara
+// 1. ENDPOINT GET: Mengambil daftar data tamu dari MySQL
 if ($method === 'GET') {
-    http_response_code(200);
-    echo json_encode([
-        'success' => true,
-        'count' => 2,
-        'data' => [
-            ['id' => 1, 'nama' => 'Ahmad Subagja', 'pax' => 2, 'status' => 'Hadir'],
-            ['id' => 2, 'nama' => 'Siti Nurhaliza', 'pax' => 1, 'status' => 'Tentatif']
-        ]
-    ], JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
-// 2. ENDPOINT POST: Menerima konfirmasi RSVP tamu baru dengan validasi
-if ($method === 'POST') {
     try {
-        $payload = json_decode(
-            file_get_contents('php://input'),
-            true,
-            512,
-            JSON_THROW_ON_ERROR
-        );
-    } catch (JsonException $e) {
-        // Kondisi 400: Format JSON rusak / salah sintaks
-        http_response_code(400);
-        echo json_encode(['error' => 'Format JSON tidak valid']);
-        exit;
-    }
+        $status = $_GET['status'] ?? null;
 
-    if (!is_array($payload)) {
-        http_response_code(400); // 400 Bad Request jika bukan object
-        echo json_encode(['error' => 'Body JSON harus berupa object']);
-        exit;
-    }
+        // Prepared statement jika ada filter status
+        if ($status) {
+            $stmt = db()->prepare('SELECT t.id, t.instansi, t.delegasi, t.jumlah_pax, t.status_kehadiran, k.nama_kategori 
+                                   FROM tamu_undangan t 
+                                   JOIN kategori_tamu k ON k.id = t.kategori_id 
+                                   WHERE t.status_kehadiran = :status 
+                                   ORDER BY t.id DESC');
+            $stmt->execute(['status' => $status]);
+        } else {
+            // Ambil semua data tamu beserta nama kategorinya
+            $stmt = db()->query('SELECT t.id, t.instansi, t.delegasi, t.jumlah_pax, t.status_kehadiran, k.nama_kategori 
+                                 FROM tamu_undangan t 
+                                 JOIN kategori_tamu k ON k.id = t.kategori_id 
+                                 ORDER BY t.id DESC');
+        }
 
-    // Ambil data dan bersihkan
-    $nama = trim((string) ($payload['nama'] ?? ''));
-    $pax  = filter_var($payload['pax'] ?? null, FILTER_VALIDATE_INT);
+        $data = $stmt->fetchAll();
 
-    // Kondisi 422: Validasi aturan bisnis gagal (misal nama kosong, >100 karakter, atau pax < 1)
-    if ($nama === '' || strlen($nama) > 100 || $pax === false || $pax < 1) {
-        http_response_code(422);
+        http_response_code(200);
         echo json_encode([
-            'error' => 'Data tidak valid. Nama wajib diisi (maks 100 karakter) dan jumlah pax minimal 1.'
-        ]);
+            'success' => true,
+            'count' => count($data),
+            'data' => $data
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+        
+    } catch (PDOException $e) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Gagal mengambil data dari database']);
         exit;
     }
-
-    // Jika lolos semua validasi -> Sukses (201 Created)
-    http_response_code(201);
-    echo json_encode([
-        'message' => 'Konfirmasi RSVP berhasil disimpan',
-        'data' => compact('nama', 'pax')
-    ]);
-    exit;
 }
 
-// 3. JIKA MENGGUNAKAN METHOD SELAIN GET/POST (Misal: DELETE)
-header('Allow: GET, POST');
-http_response_code(405); // 405 Method Not Allowed sesuai Latihan 3 modul
+// Method Not Allowed
+header('Allow: GET');
+http_response_code(405);
 echo json_encode(['error' => 'Method tidak diizinkan']);
 exit;

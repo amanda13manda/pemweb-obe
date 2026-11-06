@@ -26,16 +26,17 @@ async function loadTamuData() {
   if (retryContainer) retryContainer.style.display = 'none';
 
   try {
-    // Lakukan request fetch ke file JSON lokal (atau endpoint REST API)
-    const response = await fetch('./data/guests.json');
+    // SESUAIKAN: Arahkan ke endpoint PHP backend database MySQL
+    const response = await fetch('./api/tamu.php');
 
-    // 2. Periksa response.ok (Menangani error HTTP 404/500)[cite: 24, 36, 37]
+    // 2. Periksa response.ok (Menangani error HTTP 404/500)
     if (!response.ok) {
       throw new Error(`HTTP Error! Status: ${response.status}`);
     }
 
-    // 3. Parse data JSON ke object JavaScript[cite: 24, 36]
-    dataTamuUndangan = await response.json();
+    // 3. Parse data JSON dan ambil key 'data' dari struktur API PHP
+    const result = await response.json();
+    dataTamuUndangan = result.data ?? [];
 
     // Sembunyikan box status jika berhasil
     if (apiStatusBox) {
@@ -48,10 +49,10 @@ async function loadTamuData() {
   } catch (error) {
     console.error("Gagal memuat data:", error);
     
-    // 4. Error State & Tombol Retry[cite: 25, 38, 43]
+    // 4. Error State & Tombol Retry
     if (apiStatusBox) {
       apiStatusBox.style.display = 'block';
-      apiStatusBox.textContent = 'Data gagal dimuat. Periksa koneksi atau path file JSON.';
+      apiStatusBox.textContent = 'Data gagal dimuat dari database. Periksa koneksi server.';
       apiStatusBox.style.color = '#d9534f';
       apiStatusBox.style.backgroundColor = '#fdf7f7';
     }
@@ -102,8 +103,9 @@ function renderItems(items) {
     const title = document.createElement('h3');
     title.textContent = `${item.instansi} (${item.delegasi})`;
 
+    // SESUAIKAN: Gunakan kolom database jumlah_pax dan status_kehadiran
     const info = document.createElement('p');
-    info.textContent = `Jumlah Kursi: ${item.jumlah} unit | Status: ${item.status} | Lokasi: ${item.lokasi}`;
+    info.textContent = `Jumlah Kursi: ${item.jumlah_pax} unit | Status: ${item.status_kehadiran} | Kategori: ${item.nama_kategori ?? '-'}`;
 
     // Elemen Container untuk Detail (Awalnya tersembunyi / display: none)
     const detailDiv = document.createElement('div');
@@ -113,9 +115,9 @@ function renderItems(items) {
       <strong>Detail Lengkap:</strong><br>
       - Instansi: ${item.instansi}<br>
       - Perwakilan: ${item.delegasi}<br>
-      - Jumlah Kursi: ${item.jumlah} unit<br>
-      - Status: ${item.status}<br>
-      - Lokasi: ${item.lokasi}
+      - Kategori: ${item.nama_kategori ?? '-'}<br>
+      - Jumlah Kursi: ${item.jumlah_pax} unit<br>
+      - Status: ${item.status_kehadiran}
     `;
 
     // Tombol Detail
@@ -130,13 +132,13 @@ function renderItems(items) {
   }
 }
 
-// Event Listener untuk Filter Status Kehadiran
+// Event Listener untuk Filter Status Kehadiran (Menyesuaikan kolom status_kehadiran)
 tombolFilter.forEach(button => {
   button.addEventListener('click', () => {
     const filter = button.dataset.filter;
     const hasil = filter === 'Semua'
       ? dataTamuUndangan
-      : dataTamuUndangan.filter(item => item.status === filter);
+      : dataTamuUndangan.filter(item => item.status_kehadiran === filter);
     renderItems(hasil);
   });
 });
@@ -177,18 +179,15 @@ if (daftar) {
     }
   });
 }
+
 // Jika elemen select ada di HTML, sinkronkan nilainya dengan localStorage
 if (limitSelect) {
   limitSelect.value = currentLimit;
 
-  // Event listener saat pengguna mengubah pilihan jumlah item per halaman
   limitSelect.addEventListener('change', (e) => {
     currentLimit = Number(e.target.value);
-    
-    // Simpan pilihan baru ke localStorage
     localStorage.setItem('itemsLimit', currentLimit);
     
-    // Render ulang data sesuai batasan baru (menggunakan slice untuk membatasi jumlah item)
     const limitedData = dataTamuUndangan.slice(0, currentLimit);
     renderItems(limitedData);
   });
@@ -208,35 +207,27 @@ if (themeButton) {
   });
 }
 
-// Memulai proses fetch data saat halaman dimuat
-loadTamuData();
-
-// VALIDASI 
+// Validasi Form RSVP (Tetap dipertahankan untuk form input)
 const formRsvp = document.querySelector('#form-rsvp');
 const formStatus = document.querySelector('#form-status');
 
 function validateForm(data) {
     const errors = {};
     
-    // --- LATIHAN 3: Pesan Error Berbeda untuk Field Kosong & Format Tidak Valid ---
-    
-    // 1. Validasi Asal Instansi
     const instansi = String(data.get('nama_instansi') ?? '').trim();
     if (instansi === '') {
-        errors.nama_instansi = 'Kolom asal instansi wajib diisi.'; // Pesan khusus jika kosong
+        errors.nama_instansi = 'Kolom asal instansi wajib diisi.';
     } else if (instansi.length < 3) {
-        errors.nama_instansi = 'Asal instansi minimal harus 3 karakter.'; // Pesan khusus jika format/panjang salah
+        errors.nama_instansi = 'Asal instansi minimal harus 3 karakter.';
     }
 
-    // 2. Validasi Nama Delegasi
     const delegasi = String(data.get('nama_delegasi') ?? '').trim();
     if (delegasi === '') {
-        errors.nama_delegasi = 'Kolom nama delegasi wajib diisi.'; // Pesan khusus jika kosong
+        errors.nama_delegasi = 'Kolom nama delegasi wajib diisi.';
     } else if (delegasi.length < 3) {
-        errors.nama_delegasi = 'Nama delegasi minimal harus 3 karakter.'; // Pesan khusus jika format salah
+        errors.nama_delegasi = 'Nama delegasi minimal harus 3 karakter.';
     }
 
-    // 3. Validasi Jumlah Hadir (Angka)
     const jumlahRaw = data.get('jumlah_hadir');
     const jumlah = Number(jumlahRaw);
     if (jumlahRaw === '') {
@@ -245,9 +236,8 @@ function validateForm(data) {
         errors.jumlah_hadir = 'Jumlah hadir tidak valid (minimal 1 orang).';
     }
 
-    // --- LATIHAN 2: Validasi Kategori / Pilihan Hanya Boleh dari Opsi yang Tersedia ---
     const statusKehadiran = String(data.get('status_kehadiran') ?? '').trim();
-    const opsiSah = ['Akan Hadir', 'Berhalangan']; // Daftar pilihan yang diizinkan
+    const opsiSah = ['Akan Hadir', 'Berhalangan', 'Tentatif'];
     
     if (statusKehadiran === '') {
         errors.status_kehadiran = 'Silakan pilih status kehadiran terlebih dahulu.';
@@ -260,12 +250,11 @@ function validateForm(data) {
 
 if (formRsvp) {
     formRsvp.addEventListener('submit', event => {
-        event.preventDefault(); // Jangan kirim ke server dulu
+        event.preventDefault();
         
         const data = new FormData(formRsvp);
         const errors = validateForm(data);
 
-        // Bersihkan error sebelumnya
         document.querySelectorAll('.error').forEach(el => el.textContent = '');
         document.querySelectorAll('[aria-invalid="true"]').forEach(el => el.removeAttribute('aria-invalid'));
         if (formStatus) {
@@ -273,7 +262,6 @@ if (formRsvp) {
             formStatus.style.backgroundColor = 'transparent';
         }
 
-        // Jika ditemukan error
         if (Object.keys(errors).length > 0) {
             for (const [field, message] of Object.entries(errors)) {
                 const errorElement = document.querySelector(`#error-${field}`);
@@ -285,7 +273,6 @@ if (formRsvp) {
                 }
             }
 
-            // Fokus otomatis ke elemen error pertama
             const firstField = Object.keys(errors)[0];
             if (formRsvp.elements[firstField]) {
                 formRsvp.elements[firstField].focus();
@@ -299,14 +286,12 @@ if (formRsvp) {
             return;
         }
 
-        // Jika lolos semua validasi Latihan
         if (formStatus) {
             formStatus.textContent = 'Data valid dan sukses! (Berhasil ditambahkan ke daftar)';
             formStatus.style.color = '#3c763d';
             formStatus.style.backgroundColor = '#dff0d8';
         }
 
-        // Tambahkan ke tabel interaktif secara dinamis
         addDataBaru(data.get('nama_instansi'), data.get('nama_delegasi'), Number(data.get('jumlah_hadir')), data.get('status_kehadiran'));
     });
 }
@@ -316,10 +301,15 @@ function addDataBaru(instansi, delegasi, jumlah, status) {
         id: dataTamuUndangan.length + 1,
         instansi: instansi,
         delegasi: delegasi,
-        jumlah: jumlah,
-        status: status,
-        lokasi: 'Auditorium Lt. 4'
+        jumlah_pax: jumlah,
+        status_kehadiran: status,
+        nama_kategori: 'Undangan Umum'
     };
-    dataTamuUndangan.push(newDataItem);
+    dataTamuUndangan.unshift(newDataItem); // Masukkan ke urutan paling atas
     renderItems(dataTamuUndangan.slice(0, currentLimit));
 }
+
+// Inisialisasi pemuatan data dari server saat halaman pertama kali dimuat
+document.addEventListener('DOMContentLoaded', () => {
+    loadTamuData();
+});

@@ -2,7 +2,9 @@
     "name": "amanda/pemweb-obe",
     "description": "Proyek Backend REST API Pemrograman Web",
     "type": "project",
-    "require": {},
+    "require": {
+        "vlucas/phpdotenv": "^5.8"
+    },
     "authors": [
         {
             "name": "Amanda",

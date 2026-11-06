@@ -133,3 +133,17 @@ Digunakan sebagai dokumentasi hasil praktikum.
 ### 2. Verifikasi dan Pengujian
 * **Pengujian Endpoint via Console/Network:** Memverifikasi status code HTTP (`200`, `201`, `400`, `422`, `405`) menggunakan *fetch* di *Browser Console* dan *DevTools Network*.
 * **Konfigurasi Git & Environment:** Memastikan file `.env` terabaikan oleh `.gitignore` sementara `.composer.json` dan `.env.example` tercatat dengan baik.
+---
+
+## Pertemuan 10 - BASIS DATA, ERD, DAN SECURITY INTEGRATION
+* **Tanggal:** 6-7 November 2026
+
+### 1. Analisis Kebutuhan
+* **Perancangan ERD & Skema Relasi:** Membantu memvalidasi kardinalitas *One-to-Many* (1:N) antar 3 tabel utama (`users`, `kategori_tamu`, dan `tamu_undangan`) serta memastikan penggunaan constraint `ON DELETE CASCADE` dan tipe data `ENUM` yang tepat.
+* **Optimasi Query Performance:** Merumuskan penambahan *index* pada kolom pencarian utama (`instansi` dan `delegasi`) untuk efisiensi eksekusi kueri MySQL.
+* **Keamanan & Arsitektur Kode:** Membantu mengonfigurasi koneksi PDO aman melalui file `.env` dan menyusun struktur *prepared statements* untuk pengamanan dari ancaman SQL Injection.
+
+### 2. Verifikasi dan Pengujian
+* **Pengujian Relasi & Index di Client Database:** Memverifikasi struktur tabel, *Primary Key*, *Foreign Key*, dan indeks langsung pada HeidiSQL dan MySQL Workbench.
+* **Pengujian API & Prepared Statements:** Memastikan endpoint API (`api/tamu.php`) dapat mengembalikan respons JSON secara dinamis sesuai filter tanpa ada celah manipulasi string SQL.
+* **Penyimpanan Commit:** Memastikan perubahan struktur basis data, file `.env.example`, dan dokumentasi ERD tercatat dengan rapi di repositori Git lokal.
